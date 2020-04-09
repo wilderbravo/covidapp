@@ -9,7 +9,7 @@
  */
 
 'use strict';
-import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import React from 'react';
 
 function DatosGenerales(props) {
@@ -22,9 +22,9 @@ function DatosGenerales(props) {
                         style={styles.logo}
                     />
                 <View>
-                    <Text style={styles.unityName}>Total de casos: {props.list.total_cases}</Text>
-                    <Text style={styles.subInfo}>Total muertes: {props.list.total_deaths}  -  Muertes hoy: {props.list.total_new_deaths_today}</Text>
-                    <Text style={styles.subInfo}>Recuperados: {props.list.total_recovered}   -  Casos hoy: {props.list.total_new_cases_today}</Text>
+                    <Text style={styles.unityName}>Total de casos: {props.list.TotalConfirmed}</Text>
+                    <Text style={styles.subInfo}>Total muertes: {props.list.TotalDeaths}  -  Muertes hoy: {props.list.NewDeaths}</Text>
+                    <Text style={styles.subInfo}>Recuperados: {props.list.TotalRecovered}   -  Casos hoy: {props.list.NewConfirmed}</Text>
                     <Text style={styles.subInfo}></Text>
                 </View>
             </View>

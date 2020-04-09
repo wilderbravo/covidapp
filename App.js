@@ -16,9 +16,6 @@ import {
   StatusBar
 } from 'react-native';
 import Codes from './src/components/countries-code';
-/*import {
-  Header,
-} from 'react-native/Libraries/NewAppScreen';*/
 import Colors from './src/components/colors';
 import Header from './src/components/header';
 import Datos from './src/components/datos-generales';
@@ -28,18 +25,27 @@ import CountryList from './src/components/countries-list';
 type Props = {};
 class App extends Component<Props> {
   state = {
-    mundialList: [],
+    globalList: [],
     countriesListNA: [],
     countriesListSA: [],
+    countriesListCA: [],
+    countriesListCR: [],
+    countriesListEU: [],
+    countriesListAS: [],
+    countriesListAF: [],
   }
   async componentDidMount() {
-    const mundial = await API.getMundial();
+    const global = await API.getGlobal();
     const countries = await API.getCountries();
-    //console.log(codesCountries(Codes.norteamerica, countries));
     this.setState({
-      mundialList: mundial[0],
+      globalList: global,
       countriesListNA: codesCountries(Codes.norteamerica, countries),
       countriesListSA: codesCountries(Codes.sudamerica, countries),
+      countriesListCA: codesCountries(Codes.centroamerica, countries),
+      countriesListCR: codesCountries(Codes.caribe, countries),
+      countriesListEU: codesCountries(Codes.europa, countries),
+      countriesListAS: codesCountries(Codes.asia, countries),
+      countriesListAF: codesCountries(Codes.africa, countries),
     })
   }
   render() {
@@ -47,18 +53,16 @@ class App extends Component<Props> {
       <>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            {global.HermesInternal == null ? null : (
-              <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-              </View>
-            )}
+          <ScrollView>
             <Header />
-            <Datos list={this.state.mundialList}/>
+            <Datos list={this.state.globalList}/>
             <CountryList list={this.state.countriesListNA} title='Norteamérica'/>
             <CountryList list={this.state.countriesListSA} title='Sudamérica'/>
+            <CountryList list={this.state.countriesListCA} title='Centroamérica'/>
+            <CountryList list={this.state.countriesListCR} title='Caribe'/>
+            <CountryList list={this.state.countriesListEU} title='Europa'/>
+            <CountryList list={this.state.countriesListAS} title='Asia'/>
+            <CountryList list={this.state.countriesListAS} title='África'/>
           </ScrollView>
         </SafeAreaView>
       </>
@@ -69,10 +73,13 @@ class App extends Component<Props> {
 function codesCountries(codes, countries){
   const arrayReturn = [];
   const nort = countries.map((dato) => {
-    if (codes[0]==dato.CountryCode || codes[1]==dato.CountryCode || codes[2]==dato.CountryCode) {
-      arrayReturn.push(dato)
-    }
-  }
+      const code = codes.map((cod) => {
+          if (cod==dato.CountryCode){
+              arrayReturn.push(dato)
+          }
+        }
+      )
+      }
   ); 
   return arrayReturn;
 }
@@ -121,5 +128,9 @@ const styles = StyleSheet.create({
                    
               </View>
             </View>
+            /*if (codes[0]==dato.CountryCode || codes[1]==dato.CountryCode || codes[2]==dato.CountryCode) {
+        arrayReturn.push(dato)
+      }
+           
  */
 export default App;

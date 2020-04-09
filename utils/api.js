@@ -15,6 +15,13 @@ class Api {
         //console.log(results);
         return Countries;
     }
+
+    async getGlobal() {
+        const query = await fetch(`${API_COUNTRY}`);
+        const { Global } = await query.json();
+        //console.log(results);
+        return Global;
+    }
 }
 
 export default new Api();
